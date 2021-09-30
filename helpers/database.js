@@ -1,23 +1,16 @@
-const mariadb = require("mariadb");
+import mariadb from "mariadb";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env-local" });
 
-const pool = mariadb.createConnection({
+const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_Name,
-  connectionLimit: 5,
-});
-
-console.log({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_Name,
+  database: process.env.DB_NAME,
   connectionLimit: 5,
 });
 
 // Connect and check for errors
-
 pool.getConnection((err, connection) => {
   if (err) {
     if (err.code === "PROTOCOL_CONNECTION_LOST") {
@@ -27,11 +20,14 @@ pool.getConnection((err, connection) => {
       console.error("Database has too many connection");
     }
     if (err.code === "ECONNREFUSED") {
-      console.error("Databse connection was refused");
+      console.error("Database connection was refused");
     }
   }
-  if (connnection) connection.release();
+  if (connection) connection.release();
+
   return;
 });
 
-module.exports = pool;
+export default pool;
+
+//pool and getconnection is what handle the connect to the data base and make sure everything is there

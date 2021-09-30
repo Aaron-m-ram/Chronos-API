@@ -5,7 +5,7 @@ CREATE TABLE Events.events (
 	`Start` varchar(100) NOT NULL,
 	`End` varchar(100) NOT NULL,
 	Seats INT NOT NULL,
-	Reoccurring varchar(100) NOT NULL,
+	Reoccuring varchar(100) NOT NULL,
 	CONSTRAINT events_PK PRIMARY KEY (id)
 )
 ENGINE=InnoDB
