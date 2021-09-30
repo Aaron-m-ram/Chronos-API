@@ -45,4 +45,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const sqlQuery = "DELETE FROM events WHERE id=?";
+    const rows = await pool.query(sqlQuery, req.params.id);
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
+
 export default router;
