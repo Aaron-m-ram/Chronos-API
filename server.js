@@ -1,6 +1,8 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env-local" });
 
-const PORT = process.env.PORT || "3001";
+const PORT = process.env.PORT || "8001";
 
 const app = express();
 
@@ -16,8 +18,15 @@ app.use(express.urlencoded({ extended: false }));
  */
 
 app.get("/", (req, res) => {
-  res.status(200).json({ name: "Aaron ", doing: "Coding" });
+  res
+    .status(200)
+    .send(
+      "This is no why you're here. Head to /user/:id and replace :id with your user id"
+    );
 });
+
+const eventsRouter = require("./routes/events");
+app.use("/event", eventsRouter);
 
 /** Start listening */
 app.listen(PORT, () => {
