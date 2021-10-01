@@ -55,4 +55,47 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const singleEvent = req.body;
+    const { id } = req.params;
+    console.log(singleEvent);
+    console.log(singleEvent.Name);
+    console.log(id);
+    if (singleEvent.Name) {
+      const sqlQuery = "UPDATE events SET Name = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(200).send(rows);
+    }
+    if (singleEvent.Date) {
+      const sqlQuery = "UPDATE events SET Date = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(400).send(rows);
+    }
+    if (singleEvent.Start) {
+      const sqlQuery = "UPDATE events SET Start = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(400).send(rows);
+    }
+    if (singleEvent.End) {
+      const sqlQuery = "UPDATE events SET End = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(400).send(rows);
+    }
+    if (singleEvent.Seats) {
+      const sqlQuery = "UPDATE events SET Seats = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(400).send(rows);
+    }
+    if (singleEvent.Reoccuring) {
+      const sqlQuery = "UPDATE events SET Reoccuring = ? WHERE id=?";
+      const rows = await pool.query(sqlQuery, [singleEvent.Name, id]);
+      return res.status(400).send(rows);
+    }
+  } catch {
+    console.log("ERROR");
+    return res.status(400).send(error.message);
+  }
+});
+
 export default router;
