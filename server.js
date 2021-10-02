@@ -28,6 +28,9 @@ app.get("/", (req, res) => {
 import router from "./routes/events.js";
 app.use("/event", router);
 
+import routerPeople from "./routes/people.js";
+app.use("/people", routerPeople);
+
 /** Start listening */
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}`);
