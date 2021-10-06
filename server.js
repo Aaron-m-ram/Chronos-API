@@ -2,9 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env-local" });
 
+import cors from "cors";
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
 const PORT = process.env.PORT || "8001";
 
 const app = express();
+
+//to allow cors
+app.use(cors(corsOptions));
 
 /**
  *  MIddleware
