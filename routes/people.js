@@ -16,7 +16,7 @@ routerPeople.get("/table", async function (req, res) {
 routerPeople.get("/:id", async (req, res) => {
   try {
     const sqlQuery =
-      "SELECT id, Name, Rank, Email, phoneNumber FROM people WHERE id=?";
+      "SELECT id, name, rank, email, phoneNumber, ischecked FROM people WHERE id=?";
     const rows = await pool.query(sqlQuery, req.params.id);
     return res.status(200).json(rows);
   } catch (error) {
@@ -28,13 +28,14 @@ routerPeople.post("/table", async function (req, res) {
   try {
     const singlePerson = req.body;
     const sqlQuery =
-      "INSERT INTO events (id, Name, Rank, Email, PhoneNumber) VALUES(?,?,?,?,?)";
+      "INSERT INTO events (id, name, rank, email, phoneNumber, ischecked) VALUES(?,?,?,?,?,?)";
     const result = await pool.query(sqlQuery, [
       singlePerson.id,
-      singlePerson.Name,
-      singlePerson.Rank,
-      singlePerson.Email,
+      singlePerson.name,
+      singlePerson.rank,
+      singlePerson.email,
       singlePerson.phoneNumber,
+      singlePerson.ischecked,
     ]);
     return res.status(200).json(result);
   } catch (error) {
