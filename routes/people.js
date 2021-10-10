@@ -58,4 +58,24 @@ routerPeople.delete("/:id", async (req, res) => {
   }
 });
 
+routerPeople.patch("/:id", async (req, res) => {
+  try {
+    const singleEvent = req.body;
+    const { id } = req.params;
+    const { email } = req.params;
+    if (singleEvent.ischecked) {
+      const sqlQuery =
+        "UPDATE people SET ischecked = ? WHERE id=? AND email=? ";
+      const rows = await pool.query(sqlQuery, [
+        singleEvent.ischecked,
+        id,
+        email,
+      ]);
+      res.status(200).send(rows);
+    }
+  } catch {
+    console.log("ERROR");
+    return res.status(400).send(error.message);
+  }
+});
 export default routerPeople;

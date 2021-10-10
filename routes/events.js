@@ -84,6 +84,7 @@ router.patch("/:id", async (req, res) => {
     }
     if (singleEvent.seats) {
       const sqlQuery = "UPDATE events SET seats = ? WHERE id=?";
+      console.log("in seats");
       const rows = await pool.query(sqlQuery, [singleEvent.seats, id]);
       res.status(200).send(rows);
     }
