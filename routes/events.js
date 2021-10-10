@@ -65,37 +65,37 @@ router.patch("/:id", async (req, res) => {
     if (singleEvent.name) {
       const sqlQuery = "UPDATE events SET name = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.name, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.date) {
       const sqlQuery = "UPDATE events SET date = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.date, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.start) {
       const sqlQuery = "UPDATE events SET start = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.start, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.end) {
       const sqlQuery = "UPDATE events SET end = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.end, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.seats) {
       const sqlQuery = "UPDATE events SET seats = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.seats, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.reoccuring) {
       const sqlQuery = "UPDATE events SET reoccuring = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.reoccuring, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
     if (singleEvent.regBtn) {
       const sqlQuery = "UPDATE events SET regBtn = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.regBtn, id]);
-      return res.status(200).send(rows);
+      res.status(200).send(rows);
     }
   } catch {
     console.log("ERROR");
