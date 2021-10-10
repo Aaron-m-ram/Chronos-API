@@ -28,7 +28,7 @@ routerPeople.post("/table", async function (req, res) {
   try {
     const singlePerson = req.body;
     const sqlQuery =
-      "INSERT INTO events (id, name, rank, email, phoneNumber, ischecked) VALUES(?,?,?,?,?,?)";
+      "INSERT INTO people (id, name, rank, email, phoneNumber, ischecked) VALUES(?,?,?,?,?,?)";
     const result = await pool.query(sqlQuery, [
       singlePerson.id,
       singlePerson.name,
