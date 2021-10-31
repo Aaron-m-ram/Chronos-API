@@ -1,5 +1,6 @@
 import express from "express";
 import pool from "../helpers/database.js";
+import { v4 as uuidv4 } from "uuid";
 const routerPeople = express.Router();
 
 routerPeople.get("/table", async function (req, res) {
@@ -16,7 +17,7 @@ routerPeople.get("/table", async function (req, res) {
 routerPeople.get("/:id", async (req, res) => {
   try {
     const sqlQuery =
-      "SELECT id, name, rank, email, phoneNumber, ischecked FROM people WHERE id=?";
+      "SELECT id, name, rank, email, phoneNumber, ischecked, uuid FROM people WHERE id=?";
     const rows = await pool.query(sqlQuery, req.params.id);
     return res.status(200).json(rows);
   } catch (error) {
@@ -27,8 +28,9 @@ routerPeople.get("/:id", async (req, res) => {
 routerPeople.post("/table", async function (req, res) {
   try {
     const singlePerson = req.body;
+    const uuid = uuidv4();
     const sqlQuery =
-      "INSERT INTO people (id, name, rank, email, phoneNumber, ischecked) VALUES(?,?,?,?,?,?)";
+      "INSERT INTO people (id, name, rank, email, phoneNumber, ischecked, uuid) VALUES(?,?,?,?,?,?,?)";
     const result = await pool.query(sqlQuery, [
       singlePerson.id,
       singlePerson.name,
@@ -36,6 +38,7 @@ routerPeople.post("/table", async function (req, res) {
       singlePerson.email,
       singlePerson.phoneNumber,
       singlePerson.ischecked,
+      uuid,
     ]);
     return res.status(200).json(result);
   } catch (error) {
@@ -43,7 +46,7 @@ routerPeople.post("/table", async function (req, res) {
   }
 });
 
-routerPeople.delete("/:id", async (req, res) => {
+/* routerPeople.delete("/:id/:email", async (req, res) => {
   try {
     const singlePerson = req.body;
     console.log(singlePerson);
@@ -52,6 +55,18 @@ routerPeople.delete("/:id", async (req, res) => {
       singlePerson.id,
       singlePerson.Email,
     ]);
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+}); */
+
+routerPeople.delete("/:id/:uuid", async (req, res) => {
+  try {
+    //const singlePerson = req.body;
+    //console.log(singlePerson);
+    const sqlQuery = "DELETE FROM people WHERE uuid=?";
+    const rows = await pool.query(sqlQuery, req.params.uuid);
     return res.status(200).json(rows);
   } catch (error) {
     return res.status(400).send(error.message);

@@ -60,44 +60,44 @@ router.patch("/:id", async (req, res) => {
     const singleEvent = req.body;
     const { id } = req.params;
     console.log(singleEvent);
-    console.log(singleEvent.name);
-    console.log(id);
     if (singleEvent.name) {
       const sqlQuery = "UPDATE events SET name = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.name, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
+    console.log("before date");
     if (singleEvent.date) {
       const sqlQuery = "UPDATE events SET date = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.date, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
-    if (singleEvent.start) {
+    if (singleEvent.start !== "") {
       const sqlQuery = "UPDATE events SET start = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.start, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
     if (singleEvent.end) {
       const sqlQuery = "UPDATE events SET end = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.end, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
     if (singleEvent.seats) {
       const sqlQuery = "UPDATE events SET seats = ? WHERE id=?";
       console.log("in seats");
       const rows = await pool.query(sqlQuery, [singleEvent.seats, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
     if (singleEvent.reoccuring) {
       const sqlQuery = "UPDATE events SET reoccuring = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.reoccuring, id]);
-      res.status(200).send(rows);
+      //res.status(200).send(rows);
     }
     if (singleEvent.regBtn) {
       const sqlQuery = "UPDATE events SET regBtn = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.regBtn, id]);
       res.status(200).send(rows);
     }
+    //res.status(200);
   } catch {
     console.log("ERROR");
     return res.status(400).send(error.message);
