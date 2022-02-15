@@ -58,8 +58,12 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const singleEvent = req.body;
+    console.log("singleEvent", singleEvent);
+    console.log("req params ", req.params);
     const { id } = req.params;
-    console.log(singleEvent);
+    console.log("{id}", id);
+    console.log("single Event after id ", singleEvent);
+
     if (singleEvent.name) {
       const sqlQuery = "UPDATE events SET name = ? WHERE id=?";
       const rows = await pool.query(sqlQuery, [singleEvent.name, id]);
