@@ -58,6 +58,8 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const singleEvent = req.body;
+    console.log("singleEvent", singleEvent);
+    console.log("req params ", req.params);
     const { id } = req.params;
     console.log(singleEvent);
     console.log("before name");
